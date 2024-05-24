@@ -5,7 +5,7 @@ using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
 // builder.Services.AddDbContext<TaskContext>(p => p.UseInMemoryDatabase("DBTasks"));
-builder.Services.AddDbContext<TaskContext>(options => options.UseNpgsql("Server=localhost;Database=DBTasks;Port=5432;User Id=postgres;Password=postgres;"));
+builder.Services.AddDbContext<TaskContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DBTasksConection")));
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
