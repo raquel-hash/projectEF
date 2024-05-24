@@ -21,6 +21,7 @@ public class TaskContext : DbContext
             category.HasKey(p => p.Id);
             category.Property(p => p.Name).IsRequired().HasMaxLength(150);
             category.Property(p => p.Description);
+            category.Property(p => p.Weight);
         });
 
         modelBuilder.Entity<Models.Task>(task =>
