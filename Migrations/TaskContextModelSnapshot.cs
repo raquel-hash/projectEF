@@ -29,7 +29,6 @@ namespace projectEF.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
@@ -37,13 +36,26 @@ namespace projectEF.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
 
-                    b.Property<string>("Weight")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Weight")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.ToTable("Category", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("989c5a75-4667-464b-b0da-9f63e7b0c1c7"),
+                            Name = "Actividades pendientes",
+                            Weight = 20
+                        },
+                        new
+                        {
+                            Id = new Guid("989c5a75-4667-464b-b0da-9f63e7b0c102"),
+                            Name = "Actividades Personales",
+                            Weight = 50
+                        });
                 });
 
             modelBuilder.Entity("projectEF.Models.Task", b =>
@@ -56,10 +68,9 @@ namespace projectEF.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreateDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zonee");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("PriorityTask")
@@ -75,6 +86,24 @@ namespace projectEF.Migrations
                     b.HasIndex("CategoriaId");
 
                     b.ToTable("Task", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("989c5a75-4667-464b-b0da-9f63e7b0c110"),
+                            CategoriaId = new Guid("989c5a75-4667-464b-b0da-9f63e7b0c1c7"),
+                            CreateDate = new DateTime(2024, 5, 27, 23, 4, 22, 27, DateTimeKind.Utc).AddTicks(2279),
+                            PriorityTask = 1,
+                            Title = "Pago de servicios publicos"
+                        },
+                        new
+                        {
+                            Id = new Guid("989c5a75-4667-464b-b0da-9f63e7b0c111"),
+                            CategoriaId = new Guid("989c5a75-4667-464b-b0da-9f63e7b0c102"),
+                            CreateDate = new DateTime(2024, 5, 27, 23, 4, 22, 27, DateTimeKind.Utc).AddTicks(2344),
+                            PriorityTask = 0,
+                            Title = "Terminar de ver pelicula en Netflix"
+                        });
                 });
 
             modelBuilder.Entity("projectEF.Models.Task", b =>
