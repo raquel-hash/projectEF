@@ -48,5 +48,16 @@ app.MapPut("/api/tasks/{id}", async ([FromServices] TaskContext dbContext, [From
     return Results.NotFound();
 });
 
+app.MapDelete("/api/tasks/{id}", async ([FromServices] TaskContext dbContext, [FromRoute] Guid id) =>
+{
+    var taskActual = dbContext.tasks.Find(id);
+    if (taskActual != null)
+    {
+        dbContext.tasks.Remove(taskActual);
+        await dbContext.SaveChangesAsync();
+        return Results.Ok();
+    }
+    return Results.NotFound();
+});
 
 app.Run();
